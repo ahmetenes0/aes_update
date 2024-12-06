@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>datlı bayan sayacı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        #countdown {
+            font-size: 1.5rem;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<h1>YKS'ye Kalan Süre İşte Burda Datlı Bayann</h1>
+<div id="countdown">Yükleniyor...</div>
+
+<script>
+    // Hedef tarih (7 Haziran 2025)
+    const targetDate = new Date("2025-06-07T00:00:00").getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        // Zamanı hesapla
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Sonucu ekrana yazdır
+        if (distance >= 0) {
+            document.getElementById("countdown").innerHTML = `
+          ${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye
+        `;
+        } else {
+            // Süre dolduğunda mesaj göster
+            clearInterval(timer);
+            document.getElementById("countdown").innerHTML = "Süre Doldu!";
+        }
+    }
+
+    // Geri sayımı her saniye güncelle
+    const timer = setInterval(updateCountdown, 1000);
+
+    // Sayfa yüklendiğinde ilk güncelleme
+    updateCountdown();
+</script>
+</body>
+</html>
